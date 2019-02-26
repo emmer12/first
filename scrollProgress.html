@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Scroll Progress</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<style>
+   .content{
+   	margin: 10px;
+   	min-height: 3600px;
+   	background: #ccc;
+   }
+   .scroll-line{
+   	position: fixed;
+   	top:0;
+   	left:0;
+   	height:8px;
+   	background: #1CE;
+   	transition:0.5s cubic-bezier(0.075,0.82,0.165,1);
+		z-index: 100
+   }
+
+</style>
+
+<body>
+	<div class="scroll-line"></div>
+
+	<div class="container">
+        <div class="content">
+        	this is the page content
+        	<p> fjgbj </p>
+        </div>
+	</div>
+   Scroll Progress
+
+
+<script type="text/javascript">
+   var scrollLine=document.querySelector('.scroll-line');
+
+   function fillScrollLine () {
+   	 const windowHeight=window.innerHeight;
+   	 const fullHeight=document.body.clientHeight;
+   	 const scrolled=window.scrollY;
+   	 const percentScrolled=(scrolled/(document.body.scrollHeight-windowHeight))*100;
+   	 scrollLine.style.width=`${percentScrolled}%`
+		 console.log(percentScrolled);
+   }
+   window.addEventListener("scroll",debounce(fillScrollLine))
+	 function debounce(func, wait = 15, immediate) {
+			  var timeout;
+			  return function() {
+			    var context = this, args = arguments;
+			    var later = function() {
+			      timeout = null;
+			      if (!immediate) func.apply(context, args);
+			    };
+			    var callNow = immediate && !timeout;
+			    clearTimeout(timeout);
+			    timeout = setTimeout(later, wait);
+			    if (callNow) func.apply(context, args);
+			  };
+   }
+</script>
+</body>
+</html>
